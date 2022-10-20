@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assignment 2</title>
+    <div style="text-align:center">
+        <h1> Zenvo TSR-S Active Aero Demo</h1>
+</head>
+<body>
+<canvas id="myCanvas"
+        width="700" height="700"
+        style="border:3px solid #000;"></canvas>
+        <br/>
+<br/>
+<input id="slider1" type="range" min="-15" max="15" />
+    <br/>
+    <input id="slider2" type="range" min="-15" max="15" />
+    <br/>
+        This is a Zenvo TSR-S replica with an active aero rear wing demonstration.
+        <br/>
+<br/>
+<br/>
+<br/>
+</div>
+<br/>
+<br/>
+<script>
+window.onload = function() {
+    var canvas = document.getElementById('myCanvas');
+    var slider1 = document.getElementById('slider1');
+    slider1.value = 0;
+    var slider2 = document.getElementById('slider2');
+    slider2.value = 0;
+    var y = 100;
+    function draw() {
+        var context = canvas.getContext('2d');
+        canvas.width = canvas.width;
+        var theta1 = slider1.value*0.005*Math.PI;
+        var phi1 = slider2.value*0.005*Math.PI;
+        var phi2 = slider2.value*-0.005*Math.PI;
+
+        function drawWheels() {
+            context.roundRect(125, 525, 85, 130, 10);
+            context.roundRect(485, 525, 85, 130, 10);
+            context.fillStyle = "#171717";
+            context.fill();
+            context.stroke();
+        }
+        
+        function drawBody() {
+            context.lineWidth = 2;
+
+            let start = { x: 120,   y: 425  };
+            let cp1 =   { x: 127,   y: 575  };
+            let cp2 =   { x: 127,   y: 575  };
+            let end =   { x: 145,   y: 600 };
+
+            context.beginPath();
+            context.moveTo(start.x, start.y);
+            context.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, end.x, end.y);
+
+            
+            context.lineTo(145, 600);
+            context.lineTo(195, 597);
+            context.lineTo(195, 610);
+            context.lineTo(500, 610);
+            context.lineTo(500, 597);
+            context.lineTo(550, 600);
+
+            start = { x: 550,   y: 600  };
+            cp1 =   { x: 570,   y: 575  };
+            cp2 =   { x: 570,   y: 575  };
+            end =   { x: 575,   y: 425 };
+
+            context.moveTo(start.x, start.y);
+            context.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, end.x, end.y);
+
+            context.lineTo(575, 425);
+            context.lineTo(540, 400);
+            context.lineTo(440, 410);
+            context.lineTo(250, 410);
+            context.lineTo(155, 400);
+            context.lineTo(120, 425);
+            context.moveTo(120, 475);
+            context.fillStyle = "white";
+            context.fill();
+            context.stroke();
+
+            context.beginPath();
+            context.moveTo(122, 460);
+            context.lineTo(575, 460);
+            context.stroke();
+        }
+
+        function drawLeftMirror() {
+            context.lineWidth = 2;
+            context.beginPath();
+            context.moveTo(155, 400);
+            context.lineTo(155, 385);
+            context.stroke();
+            let start = { x: 155,   y: 385  };
+            let cp1 =   { x: 113,   y: 375  };
+            let cp2 =   { x: 113,   y: 385  };
+            let end =   { x: 106,   y: 385 };
+
+            context.moveTo(start.x, start.y);
+            context.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, end.x, end.y);
+            context.stroke();
+
+            context.beginPath();
+            context.arc(135, 385, 30, 0.5 * Math.PI, 1 * Math.PI);
+            context.stroke();
+        }
+
+        function drawRightMirror() {
+            context.lineWidth = 2;
+            context.beginPath();
+            context.moveTo(540, 400);
+            context.lineTo(540, 385);
+            context.stroke();
+
+            let start = { x: 540,   y: 385  };
+            let cp1 =   { x: 582,   y: 375  };
+            let cp2 =   { x: 582,   y: 385  };
+            let end =   { x: 589,   y: 385 };
+
+            context.beginPath();
+            context.moveTo(start.x, start.y);
+            context.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, end.x, end.y);
+            context.stroke();
+
+            context.beginPath();
+            context.arc(560, 385, 30, 0 * Math.PI, 0.5 * Math.PI);
+            context.stroke();
+        }
+
+        function drawRoof() {
+            context.lineJoin = "round";
+            context.lineWidth = 2;
+
+            let start = { x: 170,   y: 400  };
+            let cp1 =   { x: 245,   y: 310  };
+            let cp2 =   { x: 255,   y: 310  };
+            let end =   { x: 275,   y: 310 };
+
+            context.beginPath();
+            context.moveTo(start.x, start.y);
+            context.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, end.x, end.y);
+            context.lineTo(410, 310);
+            context.stroke();
+
+            start = { x: 400,   y: 310  };
+            cp1 =   { x: 435,   y: 310  };
+            cp2 =   { x: 445,   y: 310  };
+            end =   { x: 525,   y: 400 };
+            context.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, end.x, end.y);
+            context.fillStyle = "black";
+            context.stroke();
+
+            context.lineWidth = 20;
+            context.beginPath();
+            context.moveTo(265, 310);
+            context.lineTo(280, 380);
+            context.lineTo(410, 380);
+            context.lineTo(430, 312);
+            context.stroke();
+        }
+
+        function drawWindows() {
+            context.lineWidth = 2;
+            let start = { x: 235,   y: 330  };
+            let cp1 =   { x: 253,   y: 350  };
+            let cp2 =   { x: 243,   y: 350  };
+            let end =   { x: 180,   y: 390 };
+
+            context.beginPath();
+            context.moveTo(start.x, start.y);
+            context.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, end.x, end.y);
+            context.closePath();
+            context.fillStyle = "black";
+            context.fill();
+            context.stroke();
+
+            start = { x: 457,   y: 330  };
+            cp1 =   { x: 440,   y: 350  };
+            cp2 =   { x: 450,   y: 350  };
+            end =   { x: 515,   y: 390 };
+
+            context.beginPath();
+            context.moveTo(start.x, start.y);
+            context.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, end.x, end.y);
+            context.closePath();
+            context.fillStyle = "black";
+            context.fill();
+            context.stroke();
+        }
+
+        function drawLeftTailLight() {
+            context.lineWidth = 2;
+            context.lineJoin = "round";
+
+            let start = { x: 155,   y: 435  };
+            let cp1 =   { x: 150,   y: 465  };
+            let cp2 =   { x: 150,   y: 465  };
+            let end =   { x: 155,   y: 525 };
+
+            context.beginPath();
+            context.moveTo(start.x, start.y);
+            context.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, end.x, end.y);
+
+            start = { x: 155,   y: 525  };
+            cp1 =   { x: 155,   y: 535  };
+            cp2 =   { x: 165,   y: 535  };
+            end =   { x: 200,   y: 540 };
+
+            context.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, end.x, end.y);
+            context.lineTo(245, 445);
+            context.fillStyle = "black";
+            context.stroke();
+
+            start = { x: 245,   y: 445  };
+            cp1 =   { x: 240,   y: 445  };
+            cp2 =   { x: 245,   y: 435  };
+            end =   { x: 155,   y: 435 };
+            context.moveTo(start.x, start.y);
+            context.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, end.x, end.y);
+            context.fillStyle = "black";
+            context.fill();
+            context.stroke();
+
+            
+            context.beginPath();
+            context.arc(175, 460 , 15, 0, 2 * Math.PI);
+            context.fillStyle = "red";
+            context.fill();
+            context.stroke();
+
+            context.beginPath();
+            context.arc(175, 460 , 10, 0, 2 * Math.PI);     
+            context.fillStyle = "white";
+            context.fill();
+            context.stroke();
+        }
+
+        function drawRightTailLight() {
+            context.lineJoin = "round";
+
+            let start = { x: 540,   y: 435  };
+            let cp1 =   { x: 545,   y: 465  };
+            let cp2 =   { x: 545,   y: 465  };
+            let end =   { x: 540,   y: 525 };
+
+            context.beginPath();
+            context.moveTo(start.x, start.y);
+            context.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, end.x, end.y);
+
+            start = { x: 545,   y: 525  };
+            cp1 =   { x: 535,   y: 535  };
+            cp2 =   { x: 545,   y: 535  };
+            end =   { x: 495,   y: 540 };
+
+            context.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, end.x, end.y);
+            context.lineTo(455, 445);
+            context.fillStyle = "black";
+            context.stroke();
+
+            start = { x: 455,   y: 445  };
+            cp1 =   { x: 460,   y: 445  };
+            cp2 =   { x: 455,   y: 435  };
+            end =   { x: 540,   y: 435 };
+            context.moveTo(start.x, start.y);
+            context.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, end.x, end.y);
+            context.fillStyle = "black";
+            context.fill();
+            context.stroke();
+            
+            context.beginPath();
+            context.arc(520, 460 , 15, 0, 2 * Math.PI);
+            context.fillStyle = "red";
+            context.fill();
+            context.stroke();
+
+            context.beginPath();
+            context.arc(520, 460 , 10, 0, 2 * Math.PI);   
+            context.fillStyle = "white";
+            context.fill();
+            context.stroke();
+        }
+
+        function drawDiffuser() {
+            context.lineWidth = 1;
+            context.fillStyle = "#171717";
+
+            context.beginPath();
+
+            context.moveTo(195, 625);
+            context.lineTo(500, 625);
+            context.rect(195, 610, 305, 15);
+            context.fill();
+            context.stroke();
+            
+            context.lineWidth = 3;
+            context.fillStyle = "black";
+            
+            context.beginPath();
+            context.moveTo(145, 600);
+            context.lineTo(215, 595);
+            context.lineTo(210, 615);
+            context.lineTo(132, 610);
+            context.fill();
+            context.arc(150, 620, 20, Math.PI, 1.5 * Math.PI);
+            context.stroke();
+
+        
+            context.moveTo(550, 600);
+            context.lineTo(483, 595);
+            context.lineTo(490, 615);
+            context.lineTo(563, 612);
+            context.fill();
+            context.arc(545, 620, 20, 1.5 * Math.PI, 0);
+            context.stroke();
+
+            context.beginPath();
+            context.moveTo(210, 615);
+            context.lineTo(220, 575);
+            context.lineTo(255, 570);
+            context.lineTo(275, 620);
+            context.lineTo(215, 620);
+            context.closePath();
+            context.fill();
+            context.stroke();
+
+            context.beginPath();
+            context.moveTo(490, 615);
+            context.lineTo(475, 575);
+            context.lineTo(440, 570);
+            context.lineTo(420, 620);
+            context.lineTo(485, 620);
+            context.closePath();
+            context.fill();
+            context.stroke();
+
+            context.fillStyle = "grey";
+            context.beginPath();
+            context.moveTo(265, 595);
+            context.lineTo(430, 595);
+            context.lineTo(425, 610);
+            context.lineTo(270, 610);
+            context.closePath();
+            context.fill();
+            context.stroke();
+
+            
+        }
+
+        function drawExhaust() {
+            context.lineJoin = "round";
+
+            context.beginPath();
+            context.lineWidth = 5;
+            context.moveTo(205, 595);
+            context.lineTo(220, 545);
+            context.lineTo(477, 545);
+            context.lineTo(492, 595);
+            context.fillStyle = "grey"
+            context.fill();
+            context.stroke();
+
+            context.lineWidth = 5;
+            context.fillStyle = "#565656"
+            context.beginPath();
+            context.arc(285, 570, 12, 0, 2 * Math.PI);
+            context.fill();
+            context.stroke();
+
+            context.beginPath();
+            context.arc(415, 570, 12, 0, 2 * Math.PI);
+            context.fill();
+            context.stroke();
+        }
+        function linkage(color, length, breadth) {
+      
+            context.beginPath();
+            context.fillStyle = color;
+            context.moveTo(0,0);
+            context.rect(0, 0, length, breadth);
+            context.closePath();
+            context.fill();
+        }
+
+        function drawSpoiler() {
+        }
+        
+    
+        drawWheels();
+        drawBody();
+        drawExhaust();
+        drawDiffuser();
+        drawRoof();
+        drawLeftTailLight();
+        drawRightTailLight();
+        drawLeftMirror();
+        drawRightMirror();
+        drawWindows();
+
+        context.save();
+        context.translate(250,-y + 400);
+        linkage("#171717", 200, 10);
+        context.save();
+
+        context.translate(200, 0);
+        context.rotate(theta1);
+        linkage("#171717", 100, 10);
+        context.save();
+
+        context.translate(100,0);
+        context.rotate(phi1);
+        context.scale(0.5,1);
+        linkage("#171717", 100, 10);
+        context.save();
+
+        context.restore();
+        context.restore();
+        context.restore();
+
+        context.translate(0,0);
+        context.rotate(theta1);
+        context.scale(-1,1);
+        linkage("black", 100, 10);
+        context.save();
+
+        context.restore();
+
+        context.translate(100,0);
+        context.rotate(phi2);
+        context.scale(0.5,1);
+        linkage("black", 100, 10);
+        context.save();
+
+        context.restore();
+
+        y = (y + 0.3) % 50;
+        window.requestAnimationFrame(draw);
+        context.restore();
+
+        context.scale(-1, 1);
+        context.translate(100, 100);
+        context.rotate(180 * Math.PI / 180);
+        context.rect(355, -310, 10, y);
+        context.rect(525, -310, 10, y);
+        context.fill();
+        context.stroke();
+
+        
+    }
+    draw();
+}
+</script>
+</body>
+</html>
